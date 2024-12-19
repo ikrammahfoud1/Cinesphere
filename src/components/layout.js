@@ -8,9 +8,7 @@ const Layout = () => {
     <div className="relative">
       <nav className={`navbar ${location.pathname == "/" ? "absolute" : ""}`}>
         <div className="container">
-          <button className="toggle-button" id="toggle-button">
-            ☰
-          </button>
+            
           <ul className={`nav-links`} id="nav-links">
             <li>
               <a href="/Toprated">Top rated</a>
