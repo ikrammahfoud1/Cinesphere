@@ -1,9 +1,9 @@
 import React from 'react';
-import MovieCard from '../components/MovieCard';  
-import UseMovies from '../hooks/UseMovies';  
+import MovieCard from '../components/MovieCard';
+import useMoviesWithDetails from '../hooks/useMoviesWithDetails';  // Importer le hook combiné
 
 const TopRated = () => {
-  const { movies, loading, error } = UseMovies();  
+  const { movies, loading, error } = useMoviesWithDetails();  // Utiliser le hook combiné pour récupérer les films
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
