@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axiosInstance from '../axios';  // Importer l'instance d'axios
+import axiosInstance from '../axios';  
 
 const useMovies = () => {
   const [movies, setMovies] = useState([]);
@@ -9,7 +9,7 @@ const useMovies = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await axiosInstance.get('/movie/top_rated');  // Faire la requête pour les films "Top Rated"
+        const response = await axiosInstance.get('/movie/top_rated');  
         setMovies(response.data.results);
       } catch (err) {
         setError(err.message);

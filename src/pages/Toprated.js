@@ -1,18 +1,25 @@
 import React from 'react';
-import MovieCard from '../components/MovieCard';  // Importer le composant MovieCard
-import UseMovies from '../hooks/UseMovies';  // Importer le hook renommé
+import MovieCard from '../components/MovieCard';  
+import UseMovies from '../hooks/UseMovies';  
 
 const TopRated = () => {
-  const { movies, loading, error } = UseMovies();  // Utiliser le hook pour récupérer les films "Top Rated"
+  const { movies, loading, error } = UseMovies();  
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
-      {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
-      ))}
+    <div className="bg-black min-h-screen p-4">
+      <h1 className="text-white text-4xl font-bold text-center mb-8">
+        Top Rated Movies
+      </h1>
+      
+      {/* Grille des cartes de films */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        {movies.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </div>
     </div>
   );
 };
