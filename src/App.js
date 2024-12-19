@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';  // Importer les composants de react-router-dom
-import TopRated from './pages/TopRated';  // Importer la page TopRated
+import TopRated from './pages/Toprated';  // Importer la page TopRated
 
 const App = () => {
   return (
