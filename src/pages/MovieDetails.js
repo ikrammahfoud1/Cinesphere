@@ -1,30 +1,33 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';  // Importer useParams de react-router-dom
-import useMoviesWithDetails from '../hooks/useMoviesWithDetails'; // Importer le hook combiné
+import { useParams } from 'react-router-dom';  
+import useMoviesWithDetails from '../hooks/useMoviesWithDetails'; 
 
 const MovieDetails = () => {
-  const { id } = useParams();  // Récupérer l'ID du film depuis l'URL
-  const { details, video, movieLoading, movieError } = useMoviesWithDetails(id);  // Utiliser le hook pour récupérer les détails du film
+  const { id } = useParams();  
+  const { details, video, movieLoading, movieError } = useMoviesWithDetails(id); 
 
   if (movieLoading) return <div className="text-white text-3xl text-center">Loading...</div>;
   if (movieError) return <div className="text-red-500 text-xl text-center">Error: {movieError}</div>;
+  const posterImageUrl = details?.poster_path
+    ? `https://image.tmdb.org/t/p/w500${details?.poster_path}`
+    : '/path/to/default-image.jpg'; 
 
   return (
     <div className="bg-black min-h-screen text-white p-8">
-      {/* Titre du film avec animation au survol */}
-      <h1 className="text-5xl text-red-900 font-extrabold text-center mb-10 transition-transform duration-300 transform hover:scale-105 shadow-lg shadow-red-700/50">
+      <h1 className="text-5xl text-red-900 font-extrabold text-center mb-12 transition-transform duration-300 transform hover:scale-105 shadow-lg shadow-red-700/50">
         {details?.title || details?.name}
       </h1>
 
       <div className="flex flex-col md:flex-row gap-8">
-        {/* Section Image avec hauteur réduite */}
+        {/* Section Image avec hauteur personnalisée */}
         <div className="w-full md:w-1/2 mb-6 md:mb-0 transition-transform duration-300 transform hover:scale-105">
           <img
-            className="w-full h-96 object-cover rounded-lg shadow-2xl shadow-black/50"
+            className="w-full h-96 object-cover object-top rounded-lg shadow-2xl shadow-black/50"
             src={`https://image.tmdb.org/t/p/w500${details?.poster_path}`}
             alt={details?.title || details?.name}
           />
         </div>
+
 
         {/* Section Détails du film centrée avec description plus longue */}
         <div className="w-full md:w-1/2 ml-0 md:ml-8 flex flex-col justify-center">
