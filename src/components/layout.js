@@ -13,7 +13,7 @@ const Layout = () => {
           </button>
           <ul className={`nav-links`} id="nav-links">
             <li>
-              <a href="/popular">Top rated</a>
+              <a href="/Toprated">Top rated</a>
             </li>
           </ul>
         </div>
