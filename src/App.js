@@ -1,26 +1,16 @@
-import { Route, Routes } from "react-router";
-import "./App.css";
-import Layout from "./components/layout";
-import Home from "./pages/home";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Example from "./pages/example";
-import NotFound from "./pages/notFound";
-
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { retry: false } },
-});
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';  
+import Toprated from './pages/Toprated';
+import MovieDetail from './pages/MovieDetail';
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <Router>  
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="example" element={<Example />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Toprated />} />
+        <Route path="/movie/:id" element={<MovieDetail />} />
       </Routes>
-    </QueryClientProvider>
+    </Router>
   );
 }
 
