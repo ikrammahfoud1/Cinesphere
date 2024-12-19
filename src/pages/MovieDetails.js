@@ -14,7 +14,7 @@ const MovieDetails = () => {
 
   return (
     <div className="bg-black min-h-screen text-white p-8">
-      <h1 className="text-5xl text-red-900 font-extrabold text-center mb-12 transition-transform duration-300 transform hover:scale-105 shadow-lg shadow-red-700/50">
+      <h1 className="text-5xl text-red-900 font-extrabold text-center mb-12 transition-transform duration-300 transform hover:scale-105">
         {details?.title || details?.name}
       </h1>
 
