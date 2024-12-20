@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/layout";
-import TopRated from "./pages/Toprated"; // Vérifiez le chemin d'importation
+import TopRated from "./pages/Toprated"; 
 import MovieDetails from "./pages/MovieDetails";
 
 import { Upcoming } from "./pages/Upcoming";
@@ -10,7 +10,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<TopRated />} />
+      
         <Route path="toprated" element={<TopRated />} />
         <Route path="movie/:id" element={<MovieDetails />} />
 
