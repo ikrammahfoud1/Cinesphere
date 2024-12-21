@@ -24,7 +24,7 @@ const Home = () => {
       <Loader isError={isSlidesError} isFetching={isSlidesFetching}>
         <Slider slides={sildes?.data?.results?.slice(0, 5)} />
       </Loader>
-      <div className="min-h-screen bg-gray-200 py-8 px-4 gap-2 ">
+      <div className="min-h-screen py-8 px-4 gap-2 ">
         {/* Search Bar */}
         <div className="max-w-lg mx-auto mb-8 flex flex-col gap-3">
           <div className="relative">
