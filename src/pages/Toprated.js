@@ -1,41 +1,143 @@
-import React from "react";
-import MovieCard from "../components/MovieCard";
-import useMoviesWithDetails from "../hooks/useMoviesWithDetails";
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
+import { Link } from "react-router-dom";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import certificat from "../assets/certificat.jpg";
 
 const TopRated = () => {
-  const { movies, loading, error } = useMoviesWithDetails();
+  const [movieList, setMovieList] = useState([]);
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full border-t-4 border-red-500 w-16 h-16 border-solid"></div>
-      </div>
-    );
+  const getMovies = () => {
+    fetch(
+      "https://api.themoviedb.org/3/movie/top_rated?api_key=24b374ad25475d71714256d730de98a7"
+    )
+      .then((res) => res.json())
+      .then((json) => setMovieList(json.results));
+  };
 
-  if (error)
-    return (
-      <div className="text-red-500 text-xl text-center">Error: {error}</div>
-    );
+  useEffect(() => {
+    getMovies();
+  }, []);
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    fade: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+  };
+
+  function tronquerChaine(chaine, longueur) {
+    return chaine.length > longueur ? chaine.slice(0, longueur) + "..." : chaine;
+  }
 
   return (
-    <div className="bg-black min-h-screen p-8">
-      {/* Titre principal avec effet de transition */}
-      <h1 className="text-5xl font-extrabold text-center mb-12 text-red-900 transform transition-all duration-300 hover:scale-110">
-        Top Rated Movies
-      </h1>
+    <section className="bg-rouge-3">
+      {/* Hero Section */}
+      <div className="relative">
+        <Slider {...sliderSettings}>
+          {movieList.map((movie) => (
+            <div
+              key={movie.id}
+              className="relative w-full h-96 sm:h-96 overflow-hidden"
+            >
+              <img
+                src={
+                  movie.backdrop_path
+                    ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+                    : certificat
+                }
+                alt={movie.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute flex flex-col inset-0 bg-black bg-opacity-50 items-start justify-center px-4 sm:pl-16">
+                <h1 className="text-3xl text-white">
+                  Cinesphere Top Rated Movies
+                </h1>
+                <h2 className="text-2xl sm:text-4xl font-bold text-white py-2 rounded-md">
+                  {movie.title}
+                </h2>
+                <Link
+                  to={`/movie/${movie.id}`}
+                  className="inline-flex items-center mt-4 px-3 py-2 text-sm font-medium text-center text-white bg-rouge-1 rounded-lg hover:bg-rouge-2 focus:ring-4 focus:outline-none focus:ring-rouge-2"
+                >
+                  <svg
+                    className="w-6 h-6 text-gray-800 dark:text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Zm0 0-4 4m5 0H4m1 0 4-4m1 4 4-4m-4 7v6l4-3-4-3Z"
+                    />
+                  </svg>
+                  <span className="font-semibold">Watch movie</span>
+                </Link>
+              </div>
+            </div>
+          ))}
+        </Slider>
+      </div>
 
-      {/* Slider des cartes de films avec effets de zoom et rotation */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-8">
-        {movies.map((movie) => (
+      {/* Movie List */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-14">
+        {movieList.map((movie) => (
           <div
             key={movie.id}
-            className="flex-none w-64 transform transition-transform duration-500 hover:scale-105 hover:rotate-3"
+            className="relative border rounded-lg shadow bg-gray-800 border-gray-700"
           >
-            <MovieCard movie={movie} />
+            <div className="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-lg z-10">
+              {movie.vote_average.toFixed(1)}
+            </div>
+            <Link to={`/movie/${movie.id}`}>
+              <img
+                className="rounded-t-lg"
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
+              />
+            </Link>
+            <div className="p-5">
+              <Link to={`/movie/${movie.id}`}>
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">
+                  {movie.title}
+                </h5>
+              </Link>
+              <p className="mb-3 font-normal text-gray-400">
+                {tronquerChaine(movie.overview, 100)}
+              </p>
+              <Link
+                to={`/movie/${movie.id}`}
+                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-rouge-1 rounded-lg hover:bg-rouge-2 focus:ring-4 focus:outline-none focus:ring-rouge-2"
+              >
+                Read more
+                <svg
+                  className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 14 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M1 5h12m0 0L9 1m4 4L9 9"
+                  />
+                </svg>
+              </Link>
+            </div>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
