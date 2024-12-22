@@ -9,21 +9,21 @@ const Welcome = () => {
           className="object-cover w-full h-full border-none"
         >
           <source src="\dernier.mp4" type="video/mp4" />
-          Votre navigateur ne supporte pas les vidéos HTML5.
+          Your browser does not support HTML5 videos.
         </video>
       </div>
       <div className="overlay absolute top-0 left-0 w-full h-full z-10 flex flex-col justify-center items-center bg-black bg-opacity-50 text-white text-center">
         <h1 className="title text-3xl text-red-500 uppercase tracking-wider font-bold mb-5 animate-glow">
-          Bienvenue dans l'univers de cinéma
+          Welcome to the world of cinema
         </h1>
         <p className="subtitle text-xl mb-8 animate-fadeIn">
-          Prêt à commencer votre aventure ?
+          Ready to begin your adventure?
         </p>
         <a
           href="/home"
           className="start-button py-4 px-8 bg-red-500 text-white border-none rounded-md text-lg cursor-pointer transition-all duration-300 ease-in-out transform hover:bg-red-700 hover:translate-y-[-5px] hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-red-500"
         >
-          Commencer
+          Start
         </a>
       </div>
     </div>
