@@ -11,7 +11,6 @@ const routes = [
   { title: "Poupular", href: "/popular" },
   { title: "Top Rated", href: "/toprated" },
   { title: "Upcoming", href: "/upcoming" },
-  { title: "Contact", href: "/newsletter" },
 ];
 const Header = () => {
   // State to manage mobile menu visibility and active navigation item
@@ -66,11 +65,13 @@ const Header = () => {
 
           {/* Right - Profile Photo */}
           <div className="hidden md:flex items-center space-x-3">
-            <img
-              src={profil} // Replace with your profile image URL
-              alt="Profile"
-              className="w-10 h-10 rounded-full object-cover"
-            />
+            <Link to={`/newsletter`}>
+              <img
+                src={"https://cdn-icons-png.flaticon.com/512/5893/5893924.png"} // Replace with your profile image URL
+                alt="Profile"
+                className="w-10 h-10  object-cover"
+              />
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle Button */}

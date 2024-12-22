@@ -37,7 +37,9 @@ const TopRated = () => {
   };
 
   function tronquerChaine(chaine, longueur) {
-    return chaine.length > longueur ? chaine.slice(0, longueur) + "..." : chaine;
+    return chaine.length > longueur
+      ? chaine.slice(0, longueur) + "..."
+      : chaine;
   }
 
   return (
@@ -93,7 +95,7 @@ const TopRated = () => {
       </div>
 
       {/* Movie List */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-14">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 px-4 sm:px-14">
         {movieList.map((movie) => (
           <div
             key={movie.id}
