@@ -6,18 +6,32 @@ import Card from "../components/card";
 import Pagination from "../components/pagination";
 import { useTrending } from "../hooks/useTrending";
 import YearPicker from "../components/yearPicker";
+import { usePerson } from "../hooks/usePerson";
+import Autocomplete from "../components/autocomplete";
 
 const Home = () => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [selectedYear, setSelectedYear] = useState("");
+  const [person, setPerson] = useState("");
 
-  const { isFetching, data, isError } = useMovies(search, page, selectedYear);
+  const { isFetching, data, isError } = useMovies(
+    search,
+    page,
+    selectedYear,
+    person
+  );
   const {
     data: sildes,
     isFetching: isSlidesFetching,
     isError: isSlidesError,
   } = useTrending();
+  const [personSearch, setPersonSearch] = useState("");
+  const {
+    isFetching: isPersonsFetching,
+    data: persons,
+    isError: isPersonsError,
+  } = usePerson(personSearch);
 
   return (
     <>
@@ -31,10 +45,13 @@ const Home = () => {
             <input
               onChange={(event) => {
                 setSearch(event.target.value);
+                setPerson("");
+                setPersonSearch("");
                 setPage(1);
               }}
+              value={search}
               type="text"
-              placeholder="Search"
+              placeholder="Search By name"
               className="w-full py-2 px-4 bg-white text-gray-800 rounded-lg focus:outline-none "
             />
             {/* Loop icon (search icon) on the left inside the input */}
@@ -55,18 +72,32 @@ const Home = () => {
               </svg>
             </span>
           </div>
+          <Autocomplete
+            setSearch={setPersonSearch}
+            data={persons?.data?.results}
+            setSelected={(data) => {
+              setPerson(data);
+              setPage(1);
+              setSelectedYear("");
+              setSearch("");
+            }}
+            search={personSearch}
+          />
           <YearPicker
             disabled={!search}
             selectedYear={selectedYear}
-            setSelectedYear={setSelectedYear}
+            setSelectedYear={(data) => {
+              setSelectedYear(data);
+              setPage(1);
+            }}
           />
         </div>
 
         <Loader isError={isError} isFetching={isFetching}>
-          {data?.data.total_results > 0 ? (
+          {data?.data?.[person ? "cast" : "results"]?.length > 0 ? (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center gap-8">
-                {data?.data?.results?.map((props) => (
+                {data?.data?.[person ? "cast" : "results"]?.map((props) => (
                   <Card key={props.id} {...props} />
                 ))}
               </div>

@@ -10,7 +10,7 @@ export const useTrending = () => {
     });
   };
   return useQuery({
-    queryKey: ["movies"],
+    queryKey: ["trending"],
     queryFn,
   });
 };

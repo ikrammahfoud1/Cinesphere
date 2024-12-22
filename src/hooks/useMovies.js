@@ -1,11 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../axios";
 
-export const useMovies = (keyWords, page, selectedYear) => {
+export const useMovies = (keyWords, page, selectedYear, person) => {
   const queryFn = ({ queryKey }) => {
-    const [, query, page, primary_release_year] = queryKey;
+    const [, query, page, primary_release_year, person] = queryKey;
     return axiosInstance.get(
-      query || primary_release_year ? `search/movie` : "/discover/movie",
+      person
+        ? `person/${person}/movie_credits`
+        : query || primary_release_year
+        ? `search/movie`
+        : "/discover/movie",
       {
         params: {
           page,
@@ -18,7 +22,7 @@ export const useMovies = (keyWords, page, selectedYear) => {
     );
   };
   return useQuery({
-    queryKey: ["movies", keyWords, page, selectedYear],
+    queryKey: ["movies", keyWords, page, selectedYear, person],
     queryFn,
   });
 };

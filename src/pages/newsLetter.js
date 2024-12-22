@@ -31,12 +31,6 @@ const NewsletterForm = () => {
     if (emailRegex.test(email)) {
       setIsValid(true);
       setIsSubmitted(true); // Simulate a successful submission
-      console.log("Form Submitted:", {
-        firstName,
-        lastName,
-        email,
-        favoriteCategory,
-      });
     } else {
       setIsValid(false);
     }
