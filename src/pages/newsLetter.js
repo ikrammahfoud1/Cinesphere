@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useTrending } from "../hooks/useTrending";
 import certificat from "../assets/certificat.jpg";
 import Loader from "../components/loader";
@@ -41,11 +41,11 @@ const NewsletterForm = () => {
       setIsValid(false);
     }
   };
-  const randomNumber = Math.floor(Math.random() * 20);
+  const randomNumber = useMemo(() => Math.floor(Math.random() * 20), []);
   return (
     <Loader isFetching={isFetching} isError={isError}>
       <div
-        className="min-h-[66vh ] p-6"
+        className="min-h-[80vh] p-6"
         style={{
           backgroundImage: `url(${
             data?.data?.results?.[randomNumber]?.backdrop_path
