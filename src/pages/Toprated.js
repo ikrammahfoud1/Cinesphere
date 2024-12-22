@@ -1,6 +1,6 @@
-import React from 'react';
-import MovieCard from '../components/MovieCard';
-import useMoviesWithDetails from '../hooks/useMoviesWithDetails';
+import React from "react";
+import MovieCard from "../components/MovieCard";
+import useMoviesWithDetails from "../hooks/useMoviesWithDetails";
 
 const TopRated = () => {
   const { movies, loading, error } = useMoviesWithDetails();
@@ -13,7 +13,9 @@ const TopRated = () => {
     );
 
   if (error)
-    return <div className="text-red-500 text-xl text-center">Error: {error}</div>;
+    return (
+      <div className="text-red-500 text-xl text-center">Error: {error}</div>
+    );
 
   return (
     <div className="bg-black min-h-screen p-8">
@@ -23,7 +25,7 @@ const TopRated = () => {
       </h1>
 
       {/* Slider des cartes de films avec effets de zoom et rotation */}
-      <div className="flex overflow-x-auto space-x-6 py-4 px-2 animate-marquee">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-8">
         {movies.map((movie) => (
           <div
             key={movie.id}

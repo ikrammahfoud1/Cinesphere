@@ -1,28 +1,40 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import useMoviesWithDetails from '../hooks/useMoviesWithDetails';
+import React from "react";
+import { useParams } from "react-router-dom";
+import useMoviesWithDetails from "../hooks/useMoviesWithDetails";
 
 const MovieDetails = () => {
   const { id } = useParams();
-  const { details, video, creators, actors, movieLoading, movieError } = useMoviesWithDetails(id);
+  const { details, video, creators, actors, movieLoading, movieError } =
+    useMoviesWithDetails(id);
 
-  if (movieLoading) return <div className="text-white text-3xl text-center">Loading...</div>;
-  if (movieError) return <div className="text-red-500 text-xl text-center">Error: {movieError}</div>;
+  if (movieLoading)
+    return <div className="text-white text-3xl text-center">Loading...</div>;
+  if (movieError)
+    return (
+      <div className="text-red-500 text-xl text-center">
+        Error: {movieError}
+      </div>
+    );
 
   const posterImageUrl = details?.poster_path
     ? `https://image.tmdb.org/t/p/w500${details?.poster_path}`
-    : '/path/to/default-image.jpg';
+    : "/path/to/default-image.jpg";
 
   const getImageUrl = (path) => {
-    return path ? `https://image.tmdb.org/t/p/w200${path}` : '/path/to/default-profile-image.jpg';
+    return path
+      ? `https://image.tmdb.org/t/p/w200${path}`
+      : "/path/to/default-profile-image.jpg";
   };
 
   return (
     <div className="bg-black min-h-screen text-white relative overflow-hidden">
       {/* Parallax background with blur effect */}
-      <div 
+      <div
         className="absolute top-0 left-0 right-0 bottom-0 bg-fixed bg-cover bg-center z-[-1]"
-        style={{ backgroundImage: `url(${posterImageUrl})`, filter: 'blur(8px)' }}
+        style={{
+          backgroundImage: `url(${posterImageUrl})`,
+          filter: "blur(8px)",
+        }}
       ></div>
 
       <div className="p-10 md:p-16 flex flex-col justify-center relative z-10">
@@ -42,11 +54,17 @@ const MovieDetails = () => {
             <h1 className="text-5xl text-red-600 font-extrabold mb-6 tracking-wide uppercase transform transition-all duration-500 hover:scale-105">
               {details?.title || details?.name}
             </h1>
-            <p className="text-lg md:text-xl mb-6 text-gray-300 opacity-90 hover:opacity-100 transition-opacity">{details?.overview}</p>
+            <p className="text-lg md:text-xl mb-6 text-gray-300 opacity-90 hover:opacity-100 transition-opacity">
+              {details?.overview}
+            </p>
 
             <div className="flex flex-col md:flex-row items-start gap-4 md:gap-8">
-              <p className="text-sm md:text-base text-gray-400">Release Date: {details?.release_date || details?.first_air_date}</p>
-              <p className="text-sm md:text-base text-gray-400">Rating: {details?.vote_average}</p>
+              <p className="text-sm md:text-base text-gray-400">
+                Release Date: {details?.release_date || details?.first_air_date}
+              </p>
+              <p className="text-sm md:text-base text-gray-400">
+                Rating: {details?.vote_average}
+              </p>
             </div>
           </div>
         </div>
@@ -56,7 +74,9 @@ const MovieDetails = () => {
           {/* Section des créateurs (réalisateurs) */}
           {creators.length > 0 && (
             <div className="w-full md:w-1/2 mt-4 mb-12">
-              <h2 className="text-3xl text-gray-200 font-semibold mb-4">Directed by:</h2>
+              <h2 className="text-3xl text-gray-200 font-semibold mb-4">
+                Directed by:
+              </h2>
               <div className="flex flex-wrap gap-4 justify-start">
                 {creators.map((creator) => (
                   <a
@@ -84,7 +104,9 @@ const MovieDetails = () => {
           {/* Section des acteurs */}
           {actors.length > 0 && (
             <div className="w-full md:w-1/2 mt-4 mb-12">
-              <h2 className="text-3xl text-gray-200 font-semibold mb-4">Cast:</h2>
+              <h2 className="text-3xl text-gray-200 font-semibold mb-4">
+                Cast:
+              </h2>
               <div className="flex flex-wrap gap-4 justify-start">
                 {actors.map((actor) => (
                   <a
@@ -113,10 +135,10 @@ const MovieDetails = () => {
 
       {/* Section Vidéo (Trailer) avec effet d'agrandissement */}
       {video && (
-        <div className="mt-12 transform transition-all duration-500">
+        <div className="mt-12 transform transition-all duration-500 flex items-center justify-center  w-full p-6">
           <iframe
-            width="100%"
             height="500"
+            width={"1000"}
             src={`https://www.youtube.com/embed/${video?.key}`}
             title="YouTube video player"
             frameBorder="0"
