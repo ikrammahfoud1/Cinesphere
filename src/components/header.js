@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router";
 const routes = [
   {
     title: "Home",
-    href: "home",
+    href: "/home",
   },
   { title: "Poupular", href: "/popular" },
   { title: "Top Rated", href: "/toprated" },
