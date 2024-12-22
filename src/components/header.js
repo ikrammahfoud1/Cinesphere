@@ -35,7 +35,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-black text-white py-4 px-6 border-b-2 border-[#7D5260]">
+      <header className="bg-black text-white py-4 px-6 border-b-2 border-[#7D5260] sticky  z-50 top-0 left-0">
         <div className="flex justify-between items-center max-w-screen-xl mx-auto">
           {/* Left - Logo as an Image */}
           <div className="flex items-center">
