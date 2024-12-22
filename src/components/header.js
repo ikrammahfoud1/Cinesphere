@@ -11,6 +11,7 @@ const routes = [
   { title: "Poupular", href: "/popular" },
   { title: "Top Rated", href: "/toprated" },
   { title: "Upcoming", href: "/upcoming" },
+  { title: "Contact", href: "/newsletter" },
 ];
 const Header = () => {
   // State to manage mobile menu visibility and active navigation item

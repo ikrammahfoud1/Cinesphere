@@ -6,6 +6,7 @@ import { Upcoming } from "./pages/Upcoming";
 import { Popular } from "./pages/Popular";
 import Home from "./pages/home";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import NewsletterForm from "./pages/newsLetter";
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false } },
 });
@@ -21,6 +22,7 @@ function App() {
 
           <Route path="popular" element={<Popular />} />
           <Route path="upcoming" element={<Upcoming />} />
+          <Route path="newsletter" element={<NewsletterForm />} />
         </Route>
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
