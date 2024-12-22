@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
 import profil from "../assets/profil.png";
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 
 const routes = [
   {
     title: "Home",
-    href: "/",
+    href: "home",
   },
   { title: "Poupular", href: "/popular" },
   { title: "Top Rated", href: "/toprated" },
@@ -38,13 +38,15 @@ const Header = () => {
       <header className="bg-black text-white py-4 px-6 border-b-2 border-[#7D5260] sticky  z-50 top-0 left-0">
         <div className="flex justify-between items-center max-w-screen-xl mx-auto">
           {/* Left - Logo as an Image */}
-          <div className="flex items-center">
-            <img
-              src={logo} // Replace with your logo image URL
-              alt="Logo"
-              className="h-12" // Adjust size as needed
-            />
-          </div>
+          <Link to="/home">
+            <div className="flex items-center">
+              <img
+                src={logo} // Replace with your logo image URL
+                alt="Logo"
+                className="h-12" // Adjust size as needed
+              />
+            </div>
+          </Link>
 
           {/* Center - Desktop Navigation Links */}
           <nav className="hidden md:flex space-x-8">
