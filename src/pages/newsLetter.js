@@ -41,7 +41,7 @@ const NewsletterForm = () => {
       setIsValid(false);
     }
   };
-  const randomNumber = Math.floor(Math.random() * 20) + 1;
+  const randomNumber = Math.floor(Math.random() * 20);
   return (
     <Loader isFetching={isFetching} isError={isError}>
       <div
