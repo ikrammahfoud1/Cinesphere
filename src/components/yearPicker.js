@@ -24,7 +24,7 @@ const YearPicker = ({ setSelectedYear, selectedYear, disabled }) => {
         onChange={handleYearChange}
         min="1900"
         max={currentYear}
-        className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none w-36 "
+        className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none w-36 disabled:bg-gray-200 "
       />
     </div>
   );
