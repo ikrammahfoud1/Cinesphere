@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router";
 
 const routes = [
   {
-    title: "Home",
+    title: Home,
     href: "/home",
   },
   { title: "Poupular", href: "/popular" },
@@ -53,7 +53,7 @@ const Header = () => {
               <a
                 key={title}
                 href={href}
-                onClick={() => handleLinkClick("home")}
+                onClick={() => handleLinkClick()}
                 className={`hover:text-[#B3261E] font-extrabold ${
                   href === pathname ? "text-[#B3261E] underline" : ""
                 }`}
@@ -103,7 +103,7 @@ const Header = () => {
             <a
               key={title}
               href={href}
-              onClick={() => handleLinkClick("home")}
+              onClick={() => handleLinkClick()}
               className={`block hover:text-[#B3261E] font-extrabold ${
                 href === pathname ? "text-[#B3261E] underline" : ""
               }`}
@@ -111,6 +111,16 @@ const Header = () => {
               {title}
             </a>
           ))}
+          <a
+            key={title}
+            href={"/newsletter"}
+            onClick={() => handleLinkClick()}
+            className={`block hover:text-[#B3261E] font-extrabold ${
+              "/newsletter" === pathname ? "text-[#B3261E] underline" : ""
+            }`}
+          >
+            {title}
+          </a>
         </div>
       )}
     </>
