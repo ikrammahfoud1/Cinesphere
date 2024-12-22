@@ -1,22 +1,13 @@
-import { useState } from "react";
-import { Outlet, useLocation } from "react-router";
+import { Outlet } from "react-router";
+import Footer from "./footer";
+import Header from "./header";
 
 const Layout = () => {
-  const location = useLocation();
-
   return (
-    <div className="relative">
-      <nav className={`navbar ${location.pathname == "/" ? "absolute" : ""}`}>
-        <div className="container">
-            
-          <ul className={`nav-links`} id="nav-links">
-            <li>
-              <a href="/Toprated">Top rated</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+    <div>
+      <Header />
       <Outlet />
+      <Footer />
     </div>
   );
 };
