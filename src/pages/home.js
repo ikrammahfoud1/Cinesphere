@@ -5,25 +5,28 @@ import Loader from "../components/loader";
 import Card from "../components/card";
 import Pagination from "../components/pagination";
 import { useTrending } from "../hooks/useTrending";
+import YearPicker from "../components/yearPicker";
 
 const Home = () => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [selectedYear, setSelectedYear] = useState("");
 
-  const { isFetching, data, isError } = useMovies(search, page);
+  const { isFetching, data, isError } = useMovies(search, page, selectedYear);
   const {
     data: sildes,
     isFetching: isSlidesFetching,
     isError: isSlidesError,
   } = useTrending();
+
   return (
     <>
       <Loader isError={isSlidesError} isFetching={isSlidesFetching}>
-        <Slider slides={data?.data?.results?.slice(0, 5)} />
+        <Slider slides={sildes?.data?.results?.slice(0, 5)} />
       </Loader>
-      <div className="min-h-screen bg-gray-200 py-8 px-4">
+      <div className="min-h-screen bg-gray-200 py-8 px-4 gap-2 ">
         {/* Search Bar */}
-        <div className="max-w-lg mx-auto mb-8">
+        <div className="max-w-lg mx-auto mb-8 flex flex-col gap-3">
           <div className="relative">
             <input
               onChange={(event) => {
@@ -52,6 +55,11 @@ const Home = () => {
               </svg>
             </span>
           </div>
+          <YearPicker
+            disabled={!search}
+            selectedYear={selectedYear}
+            setSelectedYear={setSelectedYear}
+          />
         </div>
 
         <Loader isError={isError} isFetching={isFetching}>

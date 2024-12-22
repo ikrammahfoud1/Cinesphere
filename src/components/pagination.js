@@ -1,6 +1,8 @@
 import React from "react";
 
-const Pagination = ({ totalPages, currentPage, onPageChange }) => {
+const Pagination = ({ totalPages: total, currentPage, onPageChange }) => {
+  const totalPages = Math.min(total, 500);
+
   // Function to calculate the visible pages
   const getPageRange = () => {
     const range = [];
@@ -42,7 +44,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
   const pageRange = getPageRange();
 
   return (
-    <div className="flex justify-center items-center space-x-2">
+    <div className="flex justify-center items-center space-x-2 mt-4">
       {/* Display Page Numbers */}
       {pageRange.map((page, index) =>
         page === "..." ? (

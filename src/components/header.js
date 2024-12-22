@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
 import profil from "../assets/profil.png";
+import { useLocation } from "react-router";
 
+const routes = [
+  {
+    title: "Home",
+    href: "/",
+  },
+  { title: "Poupular", href: "/popular" },
+  { title: "Top Rated", href: "/toprated" },
+  { title: "Upcoming", href: "/upcoming" },
+];
 const Header = () => {
   // State to manage mobile menu visibility and active navigation item
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState("home");
+  const { pathname } = useLocation();
 
   // Toggle mobile menu visibility
   const toggleMobileMenu = () => {
@@ -18,8 +28,7 @@ const Header = () => {
   };
 
   // Function to handle setting active link
-  const handleLinkClick = (link) => {
-    setActiveLink(link);
+  const handleLinkClick = () => {
     closeMobileMenu(); // Close the mobile menu on item click
   };
 
@@ -38,42 +47,18 @@ const Header = () => {
 
           {/* Center - Desktop Navigation Links */}
           <nav className="hidden md:flex space-x-8">
-            <a
-              href="#"
-              onClick={() => handleLinkClick("home")}
-              className={`hover:text-[#B3261E] font-extrabold ${
-                activeLink === "home" ? "text-[#B3261E] underline" : ""
-              }`}
-            >
-              Home
-            </a>
-            <a
-              href="#"
-              onClick={() => handleLinkClick("popular")}
-              className={`hover:text-[#B3261E] font-extrabold ${
-                activeLink === "popular" ? "text-[#B3261E] underline" : ""
-              }`}
-            >
-              Popular
-            </a>
-            <a
-              href="#"
-              onClick={() => handleLinkClick("topRated")}
-              className={`hover:text-[#B3261E] font-extrabold ${
-                activeLink === "topRated" ? "text-[#B3261E] underline" : ""
-              }`}
-            >
-              Top Rated
-            </a>
-            <a
-              href="#"
-              onClick={() => handleLinkClick("upcoming")}
-              className={`hover:text-[#B3261E] font-extrabold ${
-                activeLink === "upcoming" ? "text-[#B3261E] underline" : ""
-              }`}
-            >
-              Upcoming
-            </a>
+            {routes.map(({ title, href }) => (
+              <a
+                key={title}
+                href={href}
+                onClick={() => handleLinkClick("home")}
+                className={`hover:text-[#B3261E] font-extrabold ${
+                  href === pathname ? "text-[#B3261E] underline" : ""
+                }`}
+              >
+                {title}
+              </a>
+            ))}
           </nav>
 
           {/* Right - Profile Photo */}
@@ -110,42 +95,18 @@ const Header = () => {
       {/* Mobile Menu (Visible when isMobileMenuOpen is true) */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-black text-white px-6 py-4 space-y-4 absolute top-16 left-0 right-0 z-50">
-          <a
-            href="#"
-            onClick={() => handleLinkClick("home")}
-            className={`block hover:text-[#B3261E] font-extrabold ${
-              activeLink === "home" ? "text-[#B3261E] underline" : ""
-            }`}
-          >
-            Home
-          </a>
-          <a
-            href="#"
-            onClick={() => handleLinkClick("popular")}
-            className={`block hover:text-[#B3261E] font-extrabold ${
-              activeLink === "popular" ? "text-[#B3261E] underline" : ""
-            }`}
-          >
-            Popular
-          </a>
-          <a
-            href="#"
-            onClick={() => handleLinkClick("topRated")}
-            className={`block hover:text-[#B3261E] font-extrabold ${
-              activeLink === "topRated" ? "text-[#B3261E] underline" : ""
-            }`}
-          >
-            Top Rated
-          </a>
-          <a
-            href="#"
-            onClick={() => handleLinkClick("upcoming")}
-            className={`block hover:text-[#B3261E] font-extrabold ${
-              activeLink === "upcoming" ? "text-[#B3261E] underline" : ""
-            }`}
-          >
-            Upcoming
-          </a>
+          {routes.map(({ title, href }) => (
+            <a
+              key={title}
+              href={href}
+              onClick={() => handleLinkClick("home")}
+              className={`block hover:text-[#B3261E] font-extrabold ${
+                href === pathname ? "text-[#B3261E] underline" : ""
+              }`}
+            >
+              {title}
+            </a>
+          ))}
         </div>
       )}
     </>
