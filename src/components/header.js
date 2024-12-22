@@ -112,14 +112,13 @@ const Header = () => {
             </a>
           ))}
           <a
-            key={title}
             href={"/newsletter"}
             onClick={() => handleLinkClick()}
             className={`block hover:text-[#B3261E] font-extrabold ${
               "/newsletter" === pathname ? "text-[#B3261E] underline" : ""
             }`}
           >
-            {title}
+            News Letter
           </a>
         </div>
       )}
