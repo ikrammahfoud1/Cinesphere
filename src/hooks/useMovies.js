@@ -25,3 +25,18 @@ export const useMovies = (value, page, selectedYear, type) => {
     queryFn,
   });
 };
+
+export const useMovieById = (id) => {
+  const queryFn = () => {
+    return axiosInstance.get(`movie/${id}`, {
+      params: {
+        include_adult: "false",
+        language: "en-US",
+      },
+    });
+  };
+  return useQuery({
+    queryKey: ["movies_byid", id],
+    queryFn,
+  });
+};
