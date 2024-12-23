@@ -1,30 +1,42 @@
-import Loader from "../components/loader";
-import { useMovieById } from "../hooks/useMovies";
-import WishListContect from "../context/wishlist";
-import { useContext, useMemo } from "react";
-import CardMovie from "../components/card";
-const Card = ({ id }) => {
-  const { isFetching, data, isError } = useMovieById(id);
-  console.log(id);
-  return (
-    <Loader isError={isError} isFetching={isFetching}>
-      <CardMovie {...data?.data} />
-    </Loader>
-  );
-};
+import { Route, Routes } from "react-router-dom";
+import Layout from "./components/layout";
+import TopRated from "./pages/Toprated";
+import MovieDetails from "./pages/MovieDetails";
+import { Upcoming } from "./pages/Upcoming";
+import { Popular } from "./pages/Popular";
+import Home from "./pages/home";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import NewsletterForm from "./pages/newsLetter";
+import Welcome from "./pages/welcome";
+import React from "react";
+import { WishListrovider } from "./context/wishlist";
+import Wishlist from "./pages/wishlist";
 
-const Wishlist = () => {
-  const { wishList } = useContext(WishListContect);
-  const list = useMemo(() => wishList, []);
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: false } },
+});
+function App() {
   return (
-    <div className="min-h-[80vh] p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center gap-8 ">
-      {list.length > 0 ? (
-        list.map((id) => <Card id={id} key={id} />)
-      ) : (
-        <span class="text-white text-4xl">No item Found</span>
-      )}
-    </div>
-  );
-};
+    <QueryClientProvider client={queryClient}>
+      <WishListrovider>
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/" element={<Layout />}>
+            <Route path="home" element={<Home />} />
+            <Route path="toprated" element={<TopRated />} />
+            <Route path="movie/:id" element={<MovieDetails />} />
 
-export default Wishlist;
+            <Route path="popular" element={<Popular />} />
+            <Route path="upcoming" element={<Upcoming />} />
+            <Route path="newsletter" element={<NewsletterForm />} />
+            <Route path="wishlist" element={<Wishlist />} />
+          </Route>
+
+          <Route path="*" element={<div>404 Not Found</div>} />
+        </Routes>
+      </WishListrovider>
+    </QueryClientProvider>
+  );
+}
+
+export default App;
