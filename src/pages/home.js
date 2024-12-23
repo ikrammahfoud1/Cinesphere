@@ -125,7 +125,7 @@ const Home = () => {
               />
             </>
           ) : (
-            <>No Film Found ...</>
+            <span class="text-white text-4xl">No item Found</span>
           )}
         </Loader>
       </div>
