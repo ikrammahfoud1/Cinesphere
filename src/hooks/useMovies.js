@@ -1,28 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../axios";
 
-export const useMovies = (keyWords, page, selectedYear, person) => {
+export const useMovies = (value, page, selectedYear, type) => {
   const queryFn = ({ queryKey }) => {
-    const [, query, page, primary_release_year, person] = queryKey;
+    const [, value, page, primary_release_year, type] = queryKey;
     return axiosInstance.get(
-      person
-        ? `person/${person}/movie_credits`
-        : query || primary_release_year
-        ? `search/movie`
+      value
+        ? type === "actor"
+          ? `person/${value}/movie_credits`
+          : `search/movie`
         : "/discover/movie",
       {
         params: {
           page,
-          query,
           include_adult: "false",
           language: "en-US",
-          primary_release_year,
+          ...(type === "name" && { primary_release_year, query: value }),
         },
       }
     );
   };
   return useQuery({
-    queryKey: ["movies", keyWords, page, selectedYear, person],
+    queryKey: ["movies", value, page, selectedYear, type],
     queryFn,
   });
 };
