@@ -1,31 +1,30 @@
-// WishList.js
-import React, { createContext, useState } from "react";
-
-// Create Context
-const WishList = createContext();
-
-export const WishListrovider = ({ children }) => {
-  const [wishList, setWishlist] = useState(
-    JSON.parse(localStorage.getItem("wishlist") || "[]")
-  );
-
-  const isLiked = (id) => wishList.includes(id);
-  const handleWishListIconClick = (id) => {
-    if (!isLiked(id)) {
-      const newList = [...wishList, id];
-      setWishlist(newList);
-      return localStorage.setItem("wishlist", JSON.stringify(newList));
-    }
-    const newList = wishList.filter((elem) => elem !== id);
-    setWishlist(newList);
-    localStorage.setItem("wishlist", JSON.stringify(newList));
-  };
-
+import Loader from "../components/loader";
+import { useMovieById } from "../hooks/useMovies";
+import WishListContect from "../context/wishlist";
+import { useContext, useMemo } from "react";
+import CardMovie from "../components/card";
+const Card = ({ id }) => {
+  const { isFetching, data, isError } = useMovieById(id);
+  console.log(id);
   return (
-    <WishList.Provider value={{ handleWishListIconClick, wishList, isLiked }}>
-      {children}
-    </WishList.Provider>
+    <Loader isError={isError} isFetching={isFetching}>
+      <CardMovie {...data?.data} />
+    </Loader>
   );
 };
 
-export default WishList;
+const Wishlist = () => {
+  const { wishList } = useContext(WishListContect);
+  const list = useMemo(() => wishList, []);
+  return (
+    <div className="min-h-[80vh] p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center gap-8 ">
+      {list.length > 0 ? (
+        list.map((id) => <Card id={id} key={id} />)
+      ) : (
+        <span class="text-white text-4xl">No item Found</span>
+      )}
+    </div>
+  );
+};
+
+export default Wishlist;
