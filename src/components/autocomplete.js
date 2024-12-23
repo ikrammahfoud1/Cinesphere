@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 
-const Autocomplete = ({ setSearch, data = [], setSelected, search }) => {
+const Autocomplete = ({
+  setSearch,
+  data = [],
+  setSelected,
+  search,
+  setType,
+  type,
+}) => {
   // State to hold the input value
   const [isDropDowVisible, setIsDropdownVisible] = useState(false);
   // Function to handle input changes
@@ -19,21 +26,29 @@ const Autocomplete = ({ setSearch, data = [], setSelected, search }) => {
   };
 
   return (
-    <div className="relative">
-      {/* Input field */}
+    <div className="relative flex ">
+      <select
+        value={type}
+        id="example"
+        class="w-36 py-2 px-4 bg-white text-gray-800 rounded-tl-lg rounded-bl-lg focus:outline-none border-r-2 border-black"
+        onChange={(event) => setType(event.target.value)}
+      >
+        <option value="name">Name</option>
+        <option value="actor">Actor</option>
+      </select>
       <input
         id="autocomplete"
         type="text"
         value={search}
         onChange={handleInputChange}
-        placeholder="Search by actor"
-        className="w-full py-2 px-4 bg-white text-gray-800 rounded-lg focus:outline-none "
+        placeholder="Search"
+        className="w-full py-2 px-4 bg-white text-gray-800 rounded-tr-lg rounded-br-lg focus:outline-none "
         autoComplete="off"
       />
 
       {/* Autocomplete dropdown */}
       {isDropDowVisible && data.length > 0 && (
-        <ul className="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto z-10">
+        <ul className="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto z-10 top-[40px]">
           {data.map((search, index) => (
             <li
               key={index}
